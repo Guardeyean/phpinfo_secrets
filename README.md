@@ -4,6 +4,7 @@ Note: This script was created for security research purposes.
 Python script to extract server and environment variables from phpinfo() page.
 
 Usage:
+```bash
 python3 phpinfo_secrets.py input_file [-o OUTPUT] 
 
 input_file: provide a list of domains
