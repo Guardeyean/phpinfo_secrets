@@ -79,8 +79,8 @@ def save_to_csv(extracted_info, output_file):
 
 def main():
     parser = argparse.ArgumentParser(description="Extract sensitive $_SERVER and $_ENV variables from phpinfo pages.")
-    parser.add_argument("input_file", help="Input file containing URLs")
-    parser.add_argument("-o", "--output", help="Output file to save results", default=None)
+    parser.add_argument("input_file", help="Input file containing domains")
+    parser.add_argument("-o", "--output", help="Output results to .csv file", default=None)
     args = parser.parse_args()
     
     extracted_info, total_urls, sensitive_urls = extract_sensitive_info(args.input_file)
