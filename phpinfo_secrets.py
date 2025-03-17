@@ -6,7 +6,7 @@ import argparse
 import csv
 from termcolor import colored
 
-# Categorization for extracted sensitive data
+# Categorisation for extracted sensitive data
 categories = {
     "Database Credentials": [r"DB_(HOST|USER|PASS|PASSWORD|NAME|PORT|URL)", r"DATABASE_(USER|PASS|PASSWORD|HOST|PORT|URL)", r"MYSQL_(USER|PASS|PASSWORD|DATABASE|HOST)", r"PGSQL_(USER|PASS|PASSWORD|DATABASE|HOST)", r"MONGO_(USER|PASS|PASSWORD|DB|URI)", r"REDIS_(PASS|PASSWORD|HOST)"],
     "API Keys": [r"(API|ACCESS|SECRET|PRIVATE|PUBLIC|TWILIO|SLACK|SENDGRID|GITHUB|GITLAB|BITBUCKET|PLAID)_KEY", "(API|ACCESS|SECRET|PRIVATE|PUBLIC|TWILIO|SLACK|SENDGRID|GITHUB|GITLAB|BITBUCKET|PLAID)API_KEY", r"OAUTH_(KEY|SECRET|TOKEN)", r"JWT_(KEY|SECRET|TOKEN)", r"SESSION_KEY"],
@@ -23,12 +23,12 @@ categories = {
 
 category_counts = {category: 0 for category in categories}
 
-def categorize_secret(key):
+def Categorise_secret(key):
     for category, patterns in categories.items():
         if any(re.search(pattern, key.upper()) for pattern in patterns):
             category_counts[category] += 1
             return category
-    return "Uncategorized"
+    return "UnCategorised"
 
 def extract_sensitive_info(file_path):
     with open(file_path, 'r') as file:
@@ -62,7 +62,7 @@ def scrape_phpinfo(url):
                 if len(columns) == 2:
                     key, value = columns[0].text.strip(), columns[1].text.strip()
                     if value.lower() != "no value" and (key.startswith("$_SERVER") or key.startswith("$_ENV")):
-                        extracted_data[key] = {"value": value, "category": categorize_secret(key)}
+                        extracted_data[key] = {"value": value, "category": Categorise_secret(key)}
             
             return extracted_data if extracted_data else None
     except requests.exceptions.RequestException:
@@ -99,7 +99,7 @@ def main():
     
     print(colored(f"Total Domains Processed: {total_urls}", "yellow"))
     print(colored(f"Domains with Sensitive Information: {sensitive_urls}", "yellow"))
-    print(colored("Categorization Counts:", "yellow"))
+    print(colored("Categorisation Counts:", "yellow"))
     for category, count in category_counts.items():
         print(colored(f"{category}: {count}", "yellow"))
 
